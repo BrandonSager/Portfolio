@@ -1,0 +1,44 @@
+-- DATA OF NBA PLAYERS SEASON STATISTICS
+
+-- FINDING NBA PLAYERS UNDER AGE 20
+
+Select DISTINCT(Player), Age FROM [NBA_Stats].[dbo].[nba_stats]
+WHERE Age < 20
+Order By Age desc
+
+--FINDING PLAYERS HIGHEST FG% WITH ABOVE AVERAGE FG ATTEMPTS/GAME
+
+SELECT AVG(FGA) FROM nba_stats
+
+SELECT Player, [FG%]
+from nba_stats
+WHERE [FG%] > .45
+AND FGA > 6
+ORDER BY [FG%] desc
+
+-- CREATING A VIEW OF LAST QUERY
+
+CREATE VIEW High_FG_Percentage AS
+SELECT Player, [FG%]
+from nba_stats
+WHERE [FG%] > .45
+AND FGA > 6;
+
+SELECT * FROM High_FG_Percentage
+
+-- USING A CASE STATEMENT TO CLASSIFY PLAYER FG PERCENTAGE
+
+SELECT Player,
+CASE
+ WHEN [FG%] > 0.6 THEN 'Above 60% FG percentage'
+ WHEN [FG%] > 0.5 THEN 'Above 50% FG percentage'
+ ELSE 'Below 50% FG percentage'
+END AS FG_Percentage_Classification
+FROM nba_stats
+
+--USING GROUP BY TO FIND WHAT TEAM HAS LOWEST AVERAGE FG PERCENTAGE
+
+SELECT AVG([FG%]) as Average_FG_Percentage,Tm FROM nba_stats
+GROUP BY Tm
+ORDER BY Average_FG_Percentage
+
