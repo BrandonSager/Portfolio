@@ -1,0 +1,166 @@
+--IMPORT CSV FILE OF 'NBA STATS BY PLAYER'
+
+--SQL Skills RUNDOWN
+
+--Using SELECT STATEMENT
+
+SELECT * FROM nba_stats
+
+--Using SELECT DISTINCT STATEMENT
+
+SELECT DISTINCT(Player) FROM nba_stats
+--Using AND, OR, NOT OPERATORS
+
+SELECT * FROM nba_stats
+WHERE Pos = 'PG' AND G > 10
+
+SELECT * FROM nba_stats
+WHERE Pos = 'PG' OR Pos = 'SG'
+
+SELECT * FROM nba_stats
+WHERE NOT Pos = 'C'
+
+--Using ORDER BY 
+
+SELECT Player, PTS FROM nba_stats
+WHERE PTS > 25
+ORDER BY PTS desc
+
+--Using IS NULL
+
+SELECT PTS FROM nba_stats
+WHERE PTS IS NULL
+
+--Using SELECT TOP
+
+SELECT TOP 10 PTS, Player FROM nba_stats
+Order By PTS desc
+
+--Using MIN, MAX
+
+SELECT MAX(PTS) FROM nba_stats
+WHERE Pos = 'C'
+
+--Using COUNT, AVG, SUM
+
+SELECT COUNT(*) FROM nba_stats
+
+SELECT AVG(TRB) FROM nba_stats
+WHERE POS = 'C'
+
+SELECT SUM(FGA) FROM nba_stats
+WHERE [FG%] < 0.300
+
+-- Using LIKE, WILDCARDS
+
+SELECT * FROM nba_stats
+WHERE Player Like '%Lebron%'
+
+--Using IN
+
+SELECT Player, Tm FROM nba_stats
+WHERE Tm IN ('BKN', 'NYK')
+
+--Using Between
+
+SELECT Player, PTS FROM nba_stats
+WHERE PTS BETWEEN 10 AND 15
+
+--Using Aliases, JOIN (SELF JOIN)
+
+SELECT a.Player, b.Player FROM nba_stats as a
+JOIN nba_stats as b
+ON a.Player = b.Player
+
+--Using UNION
+
+SELECT Tm FROM nba_stats
+WHERE Tm = 'BOS'
+UNION
+SELECT Player FROM nba_stats
+WHERE Player LIKE '%Lebron%'
+
+--Using GROUP BY
+
+SELECT SUM(TRB) as SumTotalRebounds FROM nba_stats
+GROUP BY Tm
+ORDER BY SumTotalRebounds desc
+
+--Using HAVING
+
+SELECT SUM(TRB) FROM nba_stats
+GROUP BY Tm
+HAVING SUM(TRB) > 70
+ORDER BY SUM(TRB) desc
+
+--Using ANY
+
+SELECT Player FROM nba_stats
+WHERE PTS = ANY
+(SELECT PTS FROM nba_stats
+WHERE PTS > 25)
+
+--Using EXISTS
+
+SELECT a.Player, a.PTS FROM nba_stats AS a
+WHERE EXISTS (SELECT b.PTS FROM nba_stats AS b WHERE a.PTS=b.PTS AND PTS > 25)
+ORDER BY a.PTS desc
+
+--Using CASE Statement
+
+SELECT Player,
+CASE
+ WHEN [FG%] > 0.6 THEN 'Above 60% FG percentage'
+ WHEN [FG%] > 0.5 THEN 'Above 50% FG percentage'
+ ELSE 'Below 50% FG percentage'
+END AS FG_Percentage_Classification
+FROM nba_stats
+
+--Using ISNULL
+
+--Using a Stored Procedure
+
+CREATE PROCEDURE PlayersPoints
+AS
+SELECT Player, PTS FROM nba_stats
+GO;
+
+EXEC PlayersPoints;
+
+--................................
+
+--CREATE DATABASE
+
+CREATE DATABASE FavPlayers
+
+--DROP DATABASE
+
+DROP DATABASE FavPlayers
+
+--CREATE TABLE WITH CONSTRAINTS
+
+CREATE DATABASE FavPlayers
+
+CREATE TABLE FavPlayers (
+	Column_ int NOT NULL PRIMARY KEY,
+	Player varchar(50) NOT NULL,
+	MyRating int NOT NULL);
+
+--Adding a Column using ALTER TABLE
+
+ALTER TABLE FavPlayers
+ADD Salary int
+
+-- Using INSERT INTO
+
+INSERT INTO FavPlayers
+VALUES(1, 'LeBron James', 10, 32000000),
+(2, 'Kevin Durant', 9, 32000000),
+(3, 'Giannis Antentukumpo', 9, 30000000)
+
+
+--Using UPDATE
+
+UPDATE FavPlayers
+SET Salary = 31000000
+WHERE Player = 'Giannis Antentukumpo'
