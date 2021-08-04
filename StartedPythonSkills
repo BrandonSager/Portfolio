@@ -1,0 +1,36 @@
+#Brandon Sager Python Skills Rundown
+
+#Variables
+
+x = 5
+print(x)
+
+y, z = 10, 15
+print(x,y,z)
+
+a = b = "a or b"
+print(b)
+
+RandomWords = ['Flower', 'Bird', 'Cloud']
+
+j, k, l = RandomWords
+print(j)
+print(k)
+print(l)
+
+print('Look at that ' + l)
+
+#definining functions
+
+#Casting
+
+g = 7
+g = float(7)
+print(g)
+
+# Working with Strings
+
+q = 'My name is Brandon Sager.'
+print(q[3:7])
+
+print(len(q))
