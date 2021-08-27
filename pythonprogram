@@ -1,0 +1,44 @@
+# This is a program that adds, removes, or queries to a dictrionary of countries and their populations (in tens of millions).
+# User will be asked if they want to add, remove, or query.
+# If they select add or remove, they can enter a nations name and if it isn't already in the dictionary they will be asked to enter it's population.
+# If they select query they will be asked for a country's name and they will see if it is in the dictionary and if it is, what the population is.
+
+pops= {'china': 143, 'india': 136, 'usa': 32, 'pakistan': 21}
+
+def add():
+    name = str(input('Name? '))
+    name = name.lower()
+    if name in pops:
+        print('Already exists in dict.')
+        return
+    p = int(input('Population? '))
+    pops[name] = p
+    print(pops)                
+
+def remove():
+    name = str(input('Name? '))
+    name = name.lower()
+    if name not in pops:
+        print('Isnt in here anyway.')
+        return 
+    del pops[name]
+    print(pops)
+    
+def query():
+    name = str(input('Name?: '))
+    name = name.lower()
+    if name in pops:
+        print(pops[name])
+        return
+
+def main():
+    op = input('Enter operation (add, remove, or query): ')
+    op = op.lower()
+    if op == 'add':
+        add()
+    if op == 'remove':
+        remove()
+    if op == 'query':
+        query()
+
+main()
